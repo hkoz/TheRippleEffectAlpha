@@ -7,7 +7,9 @@ import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class Puddle {
     /** an integer representing puddle image resource*/
@@ -43,6 +45,21 @@ public class Puddle {
     /** a Array representing the puddle's heros*/
     private Array mpuddleHeroes;
 
+    public static String nameKey = "PNK";
+    public static String initiatorKey = "INK";
+    public static String questKey = "QDK";
+    public static String countryKey = "CoLK";
+    public static String cityKey = "CiLK";
+    public static String reqRipplesKey = "RRK";
+    public static String createdRipplesKey = "RCK";
+    public static String typeKey = "TDK";
+    public static String statusKey = "SDK";
+    public static String credibilityKey = "CBK";
+    public static String reportsKey = "RSK";
+    public static String detailsKey = "DDK";
+    public static String dateKey = "DCK";
+
+    public Puddle(){}
 
 
     /**the class constructor*/
@@ -50,20 +67,20 @@ public class Puddle {
                   String puddleCountryLocation, String puddleCityLocation,
                   String puddleRequiredRipples, String puddleCreatedRipples, String puddleType, String puddleStatus,
                   String puddleCredibilityBoostsNumber, String puddleCredibilityReportsNumber, String puddleDetails, String dateCreated) {
-        miamgeResource = imageSource;
-        mpuddleInitiator = initiatorName;
-        mpuddleName = puddlesName;
-        mpuddleQuest = puddleQuest;
-        mpuddleStatus = puddleStatus;
-        mpuddleType = puddleType;
-        mpuddleCountryLocation = puddleCountryLocation;
-        mpuddleCityLocation = puddleCityLocation;
-        mpuddleRequiredRipples = puddleRequiredRipples;
-        mpuddleCreatedRipples = puddleCreatedRipples;
-        mpuddleCredibilityBoostsNumber = puddleCredibilityBoostsNumber;
-        mpuddleCredibilityReportsNumber = puddleCredibilityReportsNumber;
-        mpuddleDetails = puddleDetails;
-        mpuddleDateCreated = dateCreated;}
+        this.miamgeResource = imageSource;
+        this.mpuddleInitiator = initiatorName;
+        this.mpuddleName = puddlesName;
+        this.mpuddleQuest = puddleQuest;
+        this.mpuddleStatus = puddleStatus;
+        this.mpuddleType = puddleType;
+        this.mpuddleCountryLocation = puddleCountryLocation;
+        this.mpuddleCityLocation = puddleCityLocation;
+        this.mpuddleRequiredRipples = puddleRequiredRipples;
+        this.mpuddleCreatedRipples = puddleCreatedRipples;
+        this.mpuddleCredibilityBoostsNumber = puddleCredibilityBoostsNumber;
+        this.mpuddleCredibilityReportsNumber = puddleCredibilityReportsNumber;
+        this.mpuddleDetails = puddleDetails;
+        this.mpuddleDateCreated = dateCreated;}
 
 
     public int getImageResource() { return miamgeResource; }
@@ -136,6 +153,26 @@ public class Puddle {
         Date now = calendar.getTime();
         SimpleDateFormat simpleDateFormat =  new SimpleDateFormat("yyyy-MM-dd' Time: 'HH:mm:ss", Locale.getDefault());
         return simpleDateFormat.format(now);
+    }
+
+    public Map<String, Object> toMap() {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put(nameKey, mpuddleName);
+        result.put(initiatorKey, mpuddleInitiator);
+        result.put(questKey, mpuddleQuest);
+        result.put(cityKey, mpuddleCityLocation);
+        result.put(countryKey, mpuddleCountryLocation);
+        result.put(reqRipplesKey, mpuddleRequiredRipples);
+        result.put(createdRipplesKey, mpuddleCreatedRipples);
+        result.put(dateKey, getCurrentDate());
+        result.put(reportsKey, mpuddleCredibilityReportsNumber);
+        result.put(credibilityKey, mpuddleCredibilityBoostsNumber);
+        result.put(statusKey, mpuddleStatus);
+        result.put(typeKey, mpuddleType);
+        result.put(detailsKey, mpuddleDetails);
+
+
+        return result;
     }
     @Override
     public int hashCode() {

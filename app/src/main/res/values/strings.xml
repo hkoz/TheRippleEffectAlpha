@@ -57,20 +57,29 @@
     <string name="no_details">Add the puddles details </string>
     <string name="no_function"> This feature will be added in future update</string>
 
-    <string name="puddleNameKey">PNK</string>
-    <string name="initiatorKey">INK</string>
-    <string name="questKey">QDK</string>
-    <string name="countryKey">CoLK</string>
-    <string name="cityKey">CiLK</string>
-    <string name="reqRipplesKey">RRK</string>
-    <string name="createdRipplesKey">RCK</string>
-    <string name="typeKey">TDK</string>
-    <string name="statusKey">SDK</string>
-    <string name="credibilityKey">CBK</string>
-    <string name="reportsKey">RSK</string>
-    <string name="detailsKey">DDK</string>
-    <string name="dateKey">DCK</string>
+
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_login2">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="types_prompt">Choose a type</string>
+    <string name="empty_text">Nothing is available</string>
+    <string-array name="types_arrays">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
 
 
 </resources>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyActivity"
+    tools:context=".MyQuestsActivity"
     android:orientation="vertical">
 
     <com.google.android.material.tabs.TabLayout
@@ -16,6 +16,5 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/viewPager" />
-
 
 </LinearLayout>

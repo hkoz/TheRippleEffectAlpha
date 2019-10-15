@@ -78,12 +78,12 @@ class LogInActivity : AppCompatActivity() {
     }
     private fun enterAsMember() = if (logInTrue) {
         Toast.makeText(this, getString(R.string.loggedIn), Toast.LENGTH_SHORT).show()
-        var myIntent = Intent (this, MyActivity::class.java)
+        var myIntent = Intent (this, SearchActivity::class.java)
         startActivity(myIntent)
     }
     else {
         Toast.makeText(this, getString(R.string.signed_up), Toast.LENGTH_SHORT).show()
-        var myIntent = Intent (this, MyActivity::class.java)
+        var myIntent = Intent (this, SearchActivity::class.java)
         startActivity(myIntent)
     }
 

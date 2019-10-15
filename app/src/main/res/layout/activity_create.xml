@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuestWriteActivity">
-
+    tools:context=".CreateActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
-
+        android:orientation="vertical"
+        android:padding="5dp">
         <LinearLayout style="@style/linear_layout_style">
-
             <TextView
                 android:id="@+id/write_puddle_title_label"
                 style="@style/label_style"
@@ -62,6 +62,13 @@
                 android:id="@+id/edit_location_city_text"
                 style="@style/text_style" />
         </LinearLayout>
+        <Button
+
+            android:id="@+id/add_location_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/add_location" />
         <LinearLayout
             style="@style/linear_layout_style">
             <TextView
@@ -84,18 +91,13 @@
                 style="@style/label_style"
                 android:text="@string/type" />
 
-            <EditText
-                android:id="@+id/edit_type_text"
-                style="@style/text_style" />
+            <Spinner
+                android:id="@+id/type_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:textDirection="anyRtl"
+                />
 
-            <TextView
-                android:id="@+id/write_status_label"
-                style="@style/label_style"
-                android:text="@string/status" />
-
-            <EditText
-                android:id="@+id/edit_Status_text"
-                style="@style/text_style" />
 
         </LinearLayout>
 
@@ -115,7 +117,6 @@
                 android:layout_width="match_parent"
                 android:maxLength="250"
                 android:maxLines="5"
-                android:paddingStart="5dp"
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 tools:text="lgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkg" />
         </LinearLayout>
@@ -130,23 +131,38 @@
                 android:text="@string/image"
                 android:textSize="20sp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:id="@+id/write_image_view"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
+                    android:id="@+id/write_image_view_1"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
                     android:clickable="true"
                     android:focusable="true"
                     android:scaleType="center"
                     android:src="@drawable/common_google_signin_btn_text_light">
-
                 </ImageView>
-
-            </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true">
+                    <Button
+                        android:id="@+id/add_images_button_1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="+"
+                        android:textSize="15sp"/>
+                    <Button
+                        android:id="@+id/delete_images_button_1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:text="x" />
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -155,14 +171,7 @@
             android:layout_height="wrap_content"
             android:gravity="center">
 
-            <Button
 
-                android:id="@+id/add_location_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/add_location"
-                android:onClick="futureFeature"/>
 
             <Button
                 android:id="@+id/form_new_puddle_button"
@@ -170,17 +179,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="@string/create_new_puddle"
-                android:onClick="formNewPuddleButtonPressed"/>
-
-            <Button
-                android:id="@+id/add_images_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/add_image"
-                android:onClick="futureFeature"/>
-
-
+                android:onClick="createFunction"/>
         </LinearLayout>
     </LinearLayout>
 

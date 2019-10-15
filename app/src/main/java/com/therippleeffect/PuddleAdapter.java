@@ -65,7 +65,7 @@ public class PuddleAdapter extends ArrayAdapter<Puddle> {
                 // Otherwise hide the ImageView (set visibility to GONE)
                 puddleImage.setVisibility(View.GONE);
             }
-            // Return the whole valuesList item layout (containing 3 TextViews) so that it can be shown in
+            // Return the whole valuesList typeText layout (containing 3 TextViews) so that it can be shown in
             // the ListView.
             return listItemView;
         }

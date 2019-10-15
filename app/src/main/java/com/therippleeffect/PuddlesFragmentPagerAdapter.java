@@ -13,21 +13,21 @@ public class PuddlesFragmentPagerAdapter extends FragmentPagerAdapter {
     }
     @Override
     public Fragment getItem(int position) {
-        if (position==0){ return new MyPuddlesFragment();}
-        else if (position==1){return new MyRipplesFragment();}
-        else return new SearchForPuddles();
+        if (position==0){ return new MyRipplesFragment();}
+//        else if (position==1){return new MyRipplesFragment();}
+        else return new MyPuddlesFragment();
     }
 
     @Override
-    public int getCount() {return 3;}
+    public int getCount() {return 2;}
 
     @Override
     public CharSequence getPageTitle(int position) {
         if (position==0){
             return "My Puddles";
         }
-        else if (position ==1)
-            return "My Ripples";
-        else return "Search for new Puddles";
+//        else if (position ==1)
+//            return "My Ripples";
+        else return "Search for Puddles";
     }
 }

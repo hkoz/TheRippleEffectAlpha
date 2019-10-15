@@ -43,22 +43,22 @@ public class AcceptQuestActivity extends AppCompatActivity {
         reports=findViewById(R.id.reports_text);
         details=findViewById(R.id.details_text);
 
-        puddleName.setText(getIntent().getStringExtra(getString(R.string.puddleNameKey)));
-        initiator.setText(getIntent().getStringExtra(getString(R.string.initiatorKey)));
-        dateCreated.setText(getIntent().getStringExtra(getString(R.string.dateKey)));
-        quest.setText(getIntent().getStringExtra(getString(R.string.questKey)));
-        countryLocation.setText(getIntent().getStringExtra(getString(R.string.countryKey)));
-        cityLocation.setText(getIntent().getStringExtra(getString(R.string.cityKey)));
-        requiredRipples.setText(getIntent().getStringExtra(getString(R.string.reqRipplesKey)));
-        createdRipples.setText(getIntent().getStringExtra(getString(R.string.createdRipplesKey)));
-        type.setText(getIntent().getStringExtra(getString(R.string.typeKey)));
-        status.setText(getIntent().getStringExtra(getString(R.string.statusKey)));
-        credibility.setText(getIntent().getStringExtra(getString(R.string.credibilityKey)));
-        reports.setText(getIntent().getStringExtra(getString(R.string.reportsKey)));
-        details.setText(getIntent().getStringExtra(getString(R.string.detailsKey)));
+        puddleName.setText(getIntent().getStringExtra(Puddle.nameKey));
+        initiator.setText(getIntent().getStringExtra(Puddle.initiatorKey));
+        dateCreated.setText(getIntent().getStringExtra(Puddle.dateKey));
+        quest.setText(getIntent().getStringExtra(Puddle.questKey));
+        countryLocation.setText(getIntent().getStringExtra(Puddle.countryKey));
+        cityLocation.setText(getIntent().getStringExtra(Puddle.cityKey));
+        requiredRipples.setText(getIntent().getStringExtra(Puddle.reqRipplesKey));
+        createdRipples.setText(getIntent().getStringExtra(Puddle.createdRipplesKey));
+        type.setText(getIntent().getStringExtra(Puddle.typeKey));
+        status.setText(getIntent().getStringExtra(Puddle.statusKey));
+        credibility.setText(getIntent().getStringExtra(Puddle.credibilityKey));
+        reports.setText(getIntent().getStringExtra(Puddle.reportsKey));
+        details.setText(getIntent().getStringExtra(Puddle.detailsKey));
 
     }
-    private void futureFeature(View view){
+    public void futureFeature(View view){
         Toast.makeText(this,getString(R.string.no_function), Toast.LENGTH_SHORT).show();
     }
 
