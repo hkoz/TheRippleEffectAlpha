@@ -56,8 +56,7 @@
     <string name="no_status">Add the puddle status </string>
     <string name="no_details">Add the puddles details </string>
     <string name="no_function"> This feature will be added in future update</string>
-
-
+    <string name="created_successfully">Created Successfully</string>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_login2">Sign in</string>
     <string name="prompt_email">Email</string>
@@ -71,14 +70,14 @@
     <string name="types_prompt">Choose a type</string>
     <string name="empty_text">Nothing is available</string>
     <string-array name="types_arrays">
-        <item>Malaysia</item>
-        <item>United States</item>
-        <item>Indonesia</item>
-        <item>France</item>
-        <item>Italy</item>
-        <item>Singapore</item>
-        <item>New Zealand</item>
-        <item>India</item>
+        <item>Money</item>
+        <item>Effort</item>
+        <item>Fund Raising</item>
+        <item>Hitchhike</item>
+        <item>Food</item>
+        <item>Babysit</item>
+        <item>Search</item>
+        <item>Other</item>
     </string-array>
 
 

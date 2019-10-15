@@ -6,37 +6,40 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
 public class MyRipplesFragment extends Fragment {
-
+     PuddleAdapter puddleAdapter;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        final Puddle[] puddleItem = new Puddle[1];
         View rootview = inflater.inflate(R.layout.puddles_list_view, container, false);
+        final FirebaseAuth mAuth = FirebaseAuth.getInstance();
         final ArrayList<Puddle> puddlesList = new ArrayList<>();
-        final ListView puddlesListView = rootview.findViewById(R.id.list_of_puddles_listView);
-        final PuddleAdapter puddleAdapter = new PuddleAdapter(getActivity(), puddlesList);
-        puddlesListView.setAdapter(puddleAdapter);
-        database.getReference().child("Puddles").addChildEventListener(new ChildEventListener() {
+        final ArrayList<String> keysList = new ArrayList<>();
+        final ListView puddlesListView = rootview.findViewById(R.id.search_list);
+        puddleAdapter = new PuddleAdapter(getContext(), puddlesList);
+        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Puddles");
+        databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                String keyofnewChild = dataSnapshot.getKey();
-                puddleItem[0] = new Puddle(-1,
+                keysList.add(dataSnapshot.getKey());
+                Puddle puddleItem= new Puddle(-1,
                         dataSnapshot.child(Puddle.nameKey).getValue().toString(),
                         dataSnapshot.child(Puddle.initiatorKey).getValue().toString(),
                         dataSnapshot.child(Puddle.questKey).getValue().toString(),
@@ -50,19 +53,26 @@ public class MyRipplesFragment extends Fragment {
                         dataSnapshot.child(Puddle.reportsKey).getValue().toString(),
                         dataSnapshot.child(Puddle.detailsKey).getValue().toString(),
                         dataSnapshot.child(Puddle.dateKey).getValue().toString());
-                puddlesList.add(puddleItem[0]);
+                puddlesList.add(puddleItem);
                 puddleAdapter.notifyDataSetChanged();
             }
             @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                puddleAdapter.notifyDataSetChanged();
+            }
             @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) { }
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                ((BaseAdapter) puddlesListView.getAdapter()).notifyDataSetChanged();
+            }
             @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) { }
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                puddleAdapter.notifyDataSetChanged();
+            }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) { }
         });
-
+        puddlesListView.setAdapter(puddleAdapter);
+        puddlesListView.setEmptyView(rootview.findViewById(R.id.empty_view));
         puddlesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -85,6 +95,22 @@ public class MyRipplesFragment extends Fragment {
                 startActivity(readQuestIntent);
             }
         });
+        puddlesListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                puddlesList.remove(i);
+                databaseReference.child(keysList.get(i)).removeValue();
+                keysList.remove(i);
+                puddleAdapter.notifyDataSetChanged();
+                return false;
+            }
+        });
         return rootview;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        puddleAdapter.notifyDataSetChanged();
     }
 }

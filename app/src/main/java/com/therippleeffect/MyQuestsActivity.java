@@ -38,7 +38,7 @@ public class MyQuestsActivity extends AppCompatActivity {
        else if (item.getItemId() == R.id.logout)
         {
             mAuth.signOut();
-            startActivity(new Intent(MyQuestsActivity.this,LogInActivity.class ));}
+            startActivity(new Intent(MyQuestsActivity.this,SingInActivity.class ));}
         return super.onOptionsItemSelected(item);
     }
 

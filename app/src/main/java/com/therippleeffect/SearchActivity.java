@@ -38,7 +38,7 @@ public class SearchActivity extends AppCompatActivity {
         {
             FirebaseAuth mAuth = FirebaseAuth.getInstance();
             mAuth.signOut();
-            startActivity(new Intent(SearchActivity.this,LogInActivity.class ));}
+            startActivity(new Intent(SearchActivity.this,SingInActivity.class ));}
         return super.onOptionsItemSelected(item);
     }
     @Override

@@ -112,6 +112,7 @@ public class CreateActivity extends AppCompatActivity implements AdapterView.OnI
             Log.i("Map", keysValuesMap.toString());
             Intent intent = new Intent(CreateActivity.this, MyQuestsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            Toast.makeText(this,getString(R.string.created_successfully), Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
          }
@@ -120,7 +121,6 @@ public class CreateActivity extends AppCompatActivity implements AdapterView.OnI
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         // On selecting a spinner typeText
         typeText = parent.getItemAtPosition(position).toString();
-
     }
     public void onNothingSelected(AdapterView<?> arg0) {
 
