@@ -6,11 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CreateActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="5dp">
+        <Button
+            android:id="@+id/form_new_puddle_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/create_new_puddle"
+            android:onClick="createFunction"/>
+
         <LinearLayout style="@style/linear_layout_style">
             <TextView
                 android:id="@+id/write_puddle_title_label"
@@ -20,7 +28,9 @@
             <EditText
                 android:id="@+id/edit_puddle_name_text"
                 style="@style/text_style"
-                android:layout_weight="3" />
+                android:layout_weight="3"
+                android:hint="@string/puddle_name"
+                android:text="@string/log_out"/>
         </LinearLayout>
 
         <LinearLayout style="@style/linear_layout_style">
@@ -34,7 +44,9 @@
 
             <EditText
                 android:id="@+id/edit_quest_text"
-                style="@style/text_style" />
+                style="@style/text_style"
+                android:hint="@string/Quest"
+                android:text="@string/log_out"/>
         </LinearLayout>
 
         <LinearLayout
@@ -43,11 +55,14 @@
             <TextView
                 android:id="@+id/write_location_country_label"
                 style="@style/label_style"
-                android:text="@string/country" />
+                android:text="@string/country"
+                />
 
             <EditText
                 android:id="@+id/edit_location_country_text"
-                style="@style/text_style" />
+                style="@style/text_style"
+                android:text="@string/log_out"
+                android:hint="@string/country"/>
 
 
         </LinearLayout>
@@ -60,7 +75,9 @@
 
             <EditText
                 android:id="@+id/edit_location_city_text"
-                style="@style/text_style" />
+                style="@style/text_style"
+                android:hint="@string/City"
+                android:text="@string/log_out"/>
         </LinearLayout>
         <Button
 
@@ -74,12 +91,16 @@
             <TextView
                 android:id="@+id/write_ripples_required_label"
                 style="@style/label_style"
-                android:text="@string/ripples_required" />
+                android:text="@string/ripples_required"
+                />
 
             <EditText
+                android:text="555"
                 android:id="@+id/edit_required_ripple_text"
                 style="@style/text_style"
-                android:inputType="number" />
+                android:inputType="number"
+                android:maxLength="3"
+                android:hint="@string/ripples_required"/>
         </LinearLayout>
 
         <LinearLayout style="@style/linear_layout_style">
@@ -112,13 +133,15 @@
                 android:textSize="20sp" />
 
             <EditText
+                android:text="@string/log_out"
                 android:id="@+id/edit_details_text"
                 style="@style/text_style"
                 android:layout_width="match_parent"
                 android:maxLength="250"
                 android:maxLines="5"
                 android:scrollbarAlwaysDrawVerticalTrack="true"
-                tools:text="lgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkg" />
+                android:hint="@string/details"
+                tools:text="" />
         </LinearLayout>
 
         <LinearLayout
@@ -165,22 +188,7 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <LinearLayout
-            style="?android:attr/buttonBarStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
 
-
-
-            <Button
-                android:id="@+id/form_new_puddle_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:text="@string/create_new_puddle"
-                android:onClick="createFunction"/>
-        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

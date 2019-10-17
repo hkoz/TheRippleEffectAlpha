@@ -28,8 +28,8 @@
     <string name="Finish">Finish</string>
     <string name="Ongoing">Ongoing</string>
     <string name="Finished">Finished</string>
-    <string name="ripples_required">Ripples required: </string>
-    <string name="ripples_created">Ripples created: </string>
+    <string name="ripples_required">Number of ripples required: </string>
+    <string name="ripples_created">Number of ripples created: </string>
     <string name="Credibility">Credibility: </string>
     <string name="boost_credibility">Encourage</string>
     <string name="credibility_boosts"> Credibility boosts: </string>
@@ -69,6 +69,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="types_prompt">Choose a type</string>
     <string name="empty_text">Nothing is available</string>
+    <string name="accepted_quest">Thank you for accepting this and creating a better world</string>
     <string-array name="types_arrays">
         <item>Money</item>
         <item>Effort</item>

@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SingInActivity extends AppCompatActivity {
 
@@ -32,14 +33,13 @@ public class SingInActivity extends AppCompatActivity {
     public void logIn(View view){
         String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
-
         if (email!= null && password!=null && emailText != "" && passwordText != ""){
                 mauth.signInWithEmailAndPassword(emailText,passwordText).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            logIn = true;
-                            enterAsMember();
+                            Toast.makeText(SingInActivity.this, getString(R.string.loggedIn), Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(SingInActivity.this, MyQuestsActivity.class));
                         }
                         else Toast.makeText(SingInActivity.this, getString(R.string.failed_log_in), Toast.LENGTH_SHORT).show();
                     }
@@ -47,35 +47,24 @@ public class SingInActivity extends AppCompatActivity {
         else Toast.makeText(SingInActivity.this, getString(R.string.failed_log_in), Toast.LENGTH_SHORT).show();
     }
 
-    public void signup(View view){
-        String emailText = email.getText().toString();
+    public void signUp(View view){
+        final String emailText = email.getText().toString();
         String passwordText = password.getText().toString();
 
-        if (email!= null && password!=null && emailText != "" && passwordText != ""){
+        if (email!= null && password!=null && !emailText.equals("") && !passwordText.equals("")){
             mauth.createUserWithEmailAndPassword(emailText,passwordText).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
-                        logIn = false;
-                        enterAsMember();
+                        Toast.makeText(SingInActivity.this, getString(R.string.signed_up), Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(SingInActivity.this, MyQuestsActivity.class));
+                        FirebaseDatabase.getInstance().getReference().child("users").child(task.getResult().getUser().getUid()).child("email").setValue(emailText);
                     }
                     else Toast.makeText(SingInActivity.this, getString(R.string.failed_sign_up), Toast.LENGTH_SHORT).show();
                 }
             }); }
         else Toast.makeText(SingInActivity.this, getString(R.string.failed_sign_up), Toast.LENGTH_SHORT).show();
     }
-
-       private void enterAsMember(){
-        if (logIn){
-            Toast.makeText(SingInActivity.this, getString(R.string.loggedIn), Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(SingInActivity.this, MyQuestsActivity.class));
-        }
-        else{
-            Toast.makeText(SingInActivity.this, getString(R.string.signed_up), Toast.LENGTH_SHORT).show();
-            startActivity(new Intent(SingInActivity.this, MyQuestsActivity.class));
-        }
-
-       }
 
 
     }
