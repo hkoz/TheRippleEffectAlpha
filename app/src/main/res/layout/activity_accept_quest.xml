@@ -9,6 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+        <ImageView
+            android:id="@+id/main_image"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"/>
 
         <LinearLayout style="@style/linear_layout_style">
 
@@ -75,6 +79,12 @@
             <TextView
                 android:id="@+id/location_country_text"
                 style="@style/text_style" />
+            <Button
+                android:id="@+id/boost_credibility_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="promoteCredibility"
+                android:text="@string/boost_credibility" />
 
             <TextView
                 android:id="@+id/read_location_city_label"
@@ -83,8 +93,13 @@
 
             <TextView
                 android:id="@+id/location_city_text"
-                style="@style/text_style"
-                />
+                style="@style/text_style" />
+            <Button
+                android:id="@+id/view_location_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="futureFeature"
+                android:text="@string/view_location" />
 
 
         </LinearLayout>
@@ -155,8 +170,13 @@
             <TextView
                 android:id="@+id/reports_text"
                 style="@style/text_style" />
+            <Button
+                android:id="@+id/report_spam_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/report_as_scam"
+                android:onClick="reportScam"/>
         </LinearLayout>
-
         <LinearLayout
             style="@style/linear_layout_style"
             android:layout_height="0dp"
@@ -178,9 +198,51 @@
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 tools:text="lgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkg" />
         </LinearLayout>
-
         <LinearLayout
-            android:id="@+id/read_image_container"
+            style="@style/linear_layout_style"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/read_heroes_label"
+                style="@style/label_style"
+                android:text="@string/heroes"
+                android:textSize="20sp" />
+            <RelativeLayout
+                android:id="@+id/heroes_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".AcceptQuestActivity">
+                <ListView
+                    android:id="@+id/heroes_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:context=".MainActivity"
+                    android:padding="10dp"
+                    android:orientation="vertical">
+                </ListView>
+                <LinearLayout
+                    android:id="@+id/empty_heroes_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/empty_heroes_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/life_png"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        style="@style/text_style"
+                        android:id="@+id/empty_heroes_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/empty_text"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
             style="@style/linear_layout_style"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -192,54 +254,47 @@
                 android:textSize="20sp" />
 
 
-            <ImageView
-                android:id="@+id/read_image_view"
+            <RelativeLayout
+                android:id="@+id/image_container"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:focusable="true"
-                android:scaleType="center"
-                android:src="@drawable/common_google_signin_btn_text_light">
-
-            </ImageView>
+                android:layout_height="match_parent"
+                tools:context=".AcceptQuestActivity">
+                <ListView
+                    android:id="@+id/image_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:context=".MainActivity"
+                    android:padding="10dp"
+                    android:orientation="vertical">
+                </ListView>
+                <LinearLayout
+                    android:id="@+id/empty_view"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/empty_view_image"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/life_png"
+                        android:layout_gravity="center"/>
+                    <TextView
+                        style="@style/text_style"
+                        android:id="@+id/empty_view_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/empty_text"
+                        android:gravity="center"/>
+                </LinearLayout>
+            </RelativeLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center">
-
             <Button
                 android:id="@+id/accept_quest_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:onClick="futureFeature"
                 android:text="@string/Accept" />
-
-            <Button
-                android:id="@+id/view_location_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="futureFeature"
-                android:text="@string/view_location" />
-
-            <Button
-                android:id="@+id/boost_credibility_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="promoteCredibility"
-                android:text="@string/boost_credibility" />
-
-            <Button
-                android:id="@+id/report_spam_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/report_as_scam"
-                android:onClick="reportScam"/>
-
-
-        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

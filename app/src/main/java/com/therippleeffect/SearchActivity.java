@@ -33,7 +33,7 @@
 //    @Override
 //    public boolean onOptionsItemSelected(MenuItem item) {
 //        if (item.getItemId() == R.id.create_new_puddle)
-//        {startActivity(new Intent(SearchActivity.this, CreateActivity.class ));}
+//        {startActivity(new Intent(SearchActivity.this, CreateQuestActivity.class ));}
 //        else if (item.getItemId() == R.id.logout)
 //        {
 //            FirebaseAuth mAuth = FirebaseAuth.getInstance();

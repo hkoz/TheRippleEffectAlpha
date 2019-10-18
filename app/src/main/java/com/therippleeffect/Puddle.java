@@ -3,6 +3,8 @@ package com.therippleeffect;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -62,6 +64,16 @@ public class Puddle {
     public static String reportsKey = "RSK";
     public static String detailsKey = "DDK";
     public static String dateKey = "DCK";
+    public static String locationKey = "LK";
+    public static String  mainimage= "MIMG";
+    public static String image1 = "IMG1";
+    public static String image2 = "IMG2";
+    public static String image3 = "IMG3";
+    public static String image4 = "IMG4";
+    public static String image5 = "IMG5";
+    public static String image6 = "IMG6";
+    public static String image7 = "IMG7";
+    public static String image8 = "IMG8";
 
     public Puddle(){}
 

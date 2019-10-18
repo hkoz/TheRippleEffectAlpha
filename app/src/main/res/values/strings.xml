@@ -69,6 +69,7 @@
     <string name="login_failed">"Login failed"</string>
     <string name="types_prompt">Choose a type</string>
     <string name="empty_text">Nothing is available</string>
+    <string name="heroes">Heroes of this puddle: </string>
     <string name="accepted_quest">Thank you for accepting this and creating a better world</string>
     <string-array name="types_arrays">
         <item>Money</item>

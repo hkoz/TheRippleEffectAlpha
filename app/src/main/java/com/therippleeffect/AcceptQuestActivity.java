@@ -2,13 +2,17 @@ package com.therippleeffect;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
 
 public class AcceptQuestActivity extends AppCompatActivity {
 
@@ -28,11 +32,22 @@ public class AcceptQuestActivity extends AppCompatActivity {
     TextView details;
     Puddle receivedPuddle;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Puddles");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accept_quest);
+
+        Task task = ImageDownloader();
+
+        Bitmap myImage;
+
+        try {
+            myImage = task.excute(intent.getStringExtra("imageURL")).get();
+
+            snapImageView?.setImageBitmap(myImage)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         puddleName=findViewById(R.id.puddle_name_text);
         initiator=findViewById(R.id.initiator_name_text);
@@ -96,6 +111,9 @@ public class AcceptQuestActivity extends AppCompatActivity {
         databaseReference.removeValue();
 
     }
+
+
+
 
 
 

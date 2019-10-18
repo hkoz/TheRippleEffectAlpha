@@ -34,7 +34,7 @@ public class MyQuestsActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.create_new_puddle)
-        {startActivity(new Intent(MyQuestsActivity.this, CreateActivity.class ));}
+        {startActivity(new Intent(MyQuestsActivity.this, CreateQuestActivity.class ));}
        else if (item.getItemId() == R.id.logout)
         {
             mAuth.signOut();

@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CreateActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class CreateQuestActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     FirebaseAuth mauth = FirebaseAuth.getInstance();
     FirebaseDatabase db = FirebaseDatabase.getInstance();
     EditText title;
@@ -80,19 +80,18 @@ public class CreateActivity extends AppCompatActivity implements AdapterView.OnI
         requiredRipplesText= requiredRipples.getText().toString();
         detailsText = details.getText().toString();
         if(TextUtils.isEmpty(nameText)){
-            Toast.makeText(CreateActivity.this,getString(R.string.no_name),Toast.LENGTH_SHORT).show();}
+            Toast.makeText(CreateQuestActivity.this,getString(R.string.no_name),Toast.LENGTH_SHORT).show();}
         else if (TextUtils.isEmpty(questText)){
-            Toast.makeText(CreateActivity.this,getString(R.string.no_quest),Toast.LENGTH_SHORT).show(); }
+            Toast.makeText(CreateQuestActivity.this,getString(R.string.no_quest),Toast.LENGTH_SHORT).show(); }
         else if (TextUtils.isEmpty(countryText)){
-            Toast.makeText(CreateActivity.this,getString(R.string.no_country),Toast.LENGTH_SHORT).show(); }
+            Toast.makeText(CreateQuestActivity.this,getString(R.string.no_country),Toast.LENGTH_SHORT).show(); }
         else if (TextUtils.isEmpty(cityText)){
-            Toast.makeText(CreateActivity.this,getString(R.string.no_city),Toast.LENGTH_SHORT).show(); }
+            Toast.makeText(CreateQuestActivity.this,getString(R.string.no_city),Toast.LENGTH_SHORT).show(); }
         else if (TextUtils.isEmpty(detailsText)){
-            Toast.makeText(CreateActivity.this,getString(R.string.no_details),Toast.LENGTH_SHORT).show(); }
+            Toast.makeText(CreateQuestActivity.this,getString(R.string.no_details),Toast.LENGTH_SHORT).show(); }
         else if (TextUtils.isEmpty(requiredRipplesText)){
-            Toast.makeText(CreateActivity.this,getString(R.string.no_ripples),Toast.LENGTH_SHORT).show(); }
+            Toast.makeText(CreateQuestActivity.this,getString(R.string.no_ripples),Toast.LENGTH_SHORT).show(); }
         else {
-
             Map<String, String> keysValuesMap = new HashMap<>();
             keysValuesMap.put(Puddle.nameKey, nameText);
             keysValuesMap.put(Puddle.questKey, questText);
@@ -110,12 +109,15 @@ public class CreateActivity extends AppCompatActivity implements AdapterView.OnI
             DatabaseReference reference = db.getReference("Puddles");
             reference.push().setValue(keysValuesMap);
             Log.i("Map", keysValuesMap.toString());
-            Intent intent = new Intent(CreateActivity.this, MyQuestsActivity.class);
+            Intent intent = new Intent(CreateQuestActivity.this, MyQuestsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             Toast.makeText(this,getString(R.string.created_successfully), Toast.LENGTH_SHORT).show();
             startActivity(intent);
         }
          }
+    public void addLocation(View view){
+        startActivity(new Intent(CreateQuestActivity.this, MapsActivity.class));
+    }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
