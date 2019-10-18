@@ -67,14 +67,6 @@ public class Puddle {
     public static String locationKey = "LK";
     public static String  mainimage= "MIMG";
     public static String image1 = "IMG1";
-    public static String image2 = "IMG2";
-    public static String image3 = "IMG3";
-    public static String image4 = "IMG4";
-    public static String image5 = "IMG5";
-    public static String image6 = "IMG6";
-    public static String image7 = "IMG7";
-    public static String image8 = "IMG8";
-
     public Puddle(){}
 
 

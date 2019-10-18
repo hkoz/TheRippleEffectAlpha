@@ -2,17 +2,25 @@ package com.therippleeffect;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FirebaseStorage;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
 
 public class AcceptQuestActivity extends AppCompatActivity {
 
@@ -32,22 +40,36 @@ public class AcceptQuestActivity extends AppCompatActivity {
     TextView details;
     Puddle receivedPuddle;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Puddles");
+    ImageView mainImage;
+    ListView imageList;
+    ListView heroesList;
+
+    public static class ImageDownload extends AsyncTask<String,Void, Bitmap>{
+
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            try{
+                Bitmap myImage;
+                URL url = new URL(strings[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.connect();
+                InputStream inputStream = connection.getInputStream();
+                myImage = BitmapFactory.decodeStream(inputStream);
+                return myImage;
+            }
+            catch(Exception e){
+                e.printStackTrace();
+                return null;
+            }
+        }
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accept_quest);
 
-        Task task = ImageDownloader();
-
-        Bitmap myImage;
-
-        try {
-            myImage = task.excute(intent.getStringExtra("imageURL")).get();
-
-            snapImageView?.setImageBitmap(myImage)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
 
         puddleName=findViewById(R.id.puddle_name_text);
         initiator=findViewById(R.id.initiator_name_text);
@@ -62,6 +84,16 @@ public class AcceptQuestActivity extends AppCompatActivity {
         credibility=findViewById(R.id.credibility_text);
         reports=findViewById(R.id.reports_text);
         details=findViewById(R.id.details_text);
+        mainImage = findViewById(R.id.main_image);
+        imageList = findViewById(R.id.images_list);
+        imageList.setEmptyView(findViewById(R.id.empty_image_view));
+        ArrayList<ImageListItem> imagesArray = new ArrayList<>();
+        ImageAdapter imageAdapter = new ImageAdapter(AcceptQuestActivity.this,imagesArray);
+        heroesList = findViewById(R.id.heroes_list);
+        heroesList.setEmptyView(findViewById(R.id.empty_heroes_view));
+        ArrayList<String> heroesArray = new ArrayList<>();
+        ArrayAdapter<String> arrayAdapter = new  ArrayAdapter<>(AcceptQuestActivity.this,android.R.layout.simple_list_item_1, heroesArray);
+
 
         databaseReference = databaseReference.child(getIntent().getStringExtra(Puddle.key));
         if (getIntent().getStringExtra("source").equals("From MyPuddlesFragment"))
@@ -83,6 +115,15 @@ public class AcceptQuestActivity extends AppCompatActivity {
         credibility.setText(String.valueOf(receivedPuddle.getPuddleCredibilityBoostsNumber()));
         reports.setText(String.valueOf(receivedPuddle.getPuddleCredibilityReportsNumber()));
         details.setText(receivedPuddle.getPuddleDetails());
+        ImageDownload task = new ImageDownload();
+        String url = "https://pics.me.me/luffy-king-of-the-pirates-post-2nd-timeskip-drawn-by-35404338.png";
+        try {
+            mainImage.setImageBitmap(task.execute(url).get());
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+
 
 
     }
@@ -111,10 +152,4 @@ public class AcceptQuestActivity extends AppCompatActivity {
         databaseReference.removeValue();
 
     }
-
-
-
-
-
-
 }
