@@ -79,12 +79,6 @@
             <TextView
                 android:id="@+id/location_country_text"
                 style="@style/text_style" />
-            <Button
-                android:id="@+id/boost_credibility_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:onClick="promoteCredibility"
-                android:text="@string/boost_credibility" />
 
             <TextView
                 android:id="@+id/read_location_city_label"
@@ -96,7 +90,7 @@
                 style="@style/text_style" />
             <Button
                 android:id="@+id/view_location_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="futureFeature"
                 android:text="@string/view_location" />
@@ -161,6 +155,12 @@
             <TextView
                 android:id="@+id/credibility_text"
                 style="@style/text_style" />
+            <Button
+                android:id="@+id/boost_credibility_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="promoteCredibility"
+                android:text="@string/boost_credibility" />
 
             <TextView
                 android:id="@+id/read_reports_label"
@@ -172,7 +172,7 @@
                 style="@style/text_style" />
             <Button
                 android:id="@+id/report_spam_button"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/report_as_scam"
                 android:onClick="reportScam"/>
@@ -198,97 +198,104 @@
                 android:scrollbarAlwaysDrawVerticalTrack="true"
                 tools:text="lgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkglgglhglkglhgkghgkg" />
         </LinearLayout>
-        <LinearLayout
-            style="@style/linear_layout_style"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:id="@+id/read_heroes_label"
-                style="@style/label_style"
-                android:text="@string/heroes"
-                android:textSize="20sp" />
-            <RelativeLayout
-                android:id="@+id/heroes_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".AcceptQuestActivity">
-                <ListView
-                    android:id="@+id/heroes_list"
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                style="@style/linear_layout_style"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/read_heroes_label"
+                    style="@style/label_style"
+                    android:text="@string/heroes"
+                    android:textSize="20sp" />
+                <RelativeLayout
+                    android:id="@+id/heroes_container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:context=".MainActivity"
-                    android:padding="10dp"
-                    android:orientation="vertical">
-                </ListView>
-                <LinearLayout
-                    android:id="@+id/empty_heroes_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:id="@+id/empty_heroes_image"
+                    android:layout_height="match_parent"
+                    tools:context=".AcceptQuestActivity">
+                    <ListView
+                        android:id="@+id/heroes_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        tools:context=".MainActivity"
+                        android:padding="10dp"
+                        android:orientation="vertical">
+                    </ListView>
+                    <LinearLayout
+                        android:id="@+id/empty_heroes_view"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/life_png"
-                        android:layout_gravity="center"/>
-                    <TextView
-                        style="@style/text_style"
-                        android:id="@+id/empty_heroes_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/empty_text"
-                        android:gravity="center"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
-        <LinearLayout
-            style="@style/linear_layout_style"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+                        android:layout_centerInParent="true"
+                        android:orientation="vertical">
+                        <ImageView
+                            android:id="@+id/empty_heroes_image"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/life_png"
+                            android:layout_gravity="center"/>
+                        <TextView
+                            style="@style/text_style"
+                            android:id="@+id/empty_heroes_text"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/empty_text"
+                            android:gravity="center"/>
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+       <ScrollView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+           <LinearLayout
+               style="@style/linear_layout_style"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/read_images_label"
-                style="@style/label_style"
-                android:text="@string/image"
-                android:textSize="20sp" />
+               <TextView
+                   android:id="@+id/read_images_label"
+                   style="@style/label_style"
+                   android:text="@string/image"
+                   android:textSize="20sp" />
 
 
-            <RelativeLayout
-                android:id="@+id/image_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context=".AcceptQuestActivity">
-                <ListView
-                    android:id="@+id/images_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:context=".MainActivity"
-                    android:padding="10dp"
-                    android:orientation="vertical">
-                </ListView>
-                <LinearLayout
-                    android:id="@+id/empty_image_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:id="@+id/image_empty_view_image"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/life_png"
-                        android:layout_gravity="center"/>
-                    <TextView
-                        style="@style/text_style"
-                        android:id="@+id/image_empty_view_text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/empty_text"
-                        android:gravity="center"/>
-                </LinearLayout>
-            </RelativeLayout>
-        </LinearLayout>
+               <RelativeLayout
+                   android:id="@+id/image_container"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   tools:context=".AcceptQuestActivity">
+                   <ListView
+                       android:id="@+id/images_list"
+                       android:layout_width="match_parent"
+                       android:layout_height="500dp"
+                       tools:context=".MainActivity"
+                       android:padding="10dp"
+                       android:orientation="vertical">
+                   </ListView>
+                   <LinearLayout
+                       android:id="@+id/empty_image_view"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_centerInParent="true"
+                       android:orientation="vertical">
+                       <ImageView
+                           android:id="@+id/image_empty_view_image"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:src="@drawable/life_png"
+                           android:layout_gravity="center"/>
+                       <TextView
+                           style="@style/text_style"
+                           android:id="@+id/image_empty_view_text"
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:text="@string/empty_text"
+                           android:gravity="center"/>
+                   </LinearLayout>
+               </RelativeLayout>
+           </LinearLayout>
+       </ScrollView>
             <Button
                 android:id="@+id/accept_quest_button"
                 android:layout_width="match_parent"

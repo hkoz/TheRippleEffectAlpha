@@ -13,10 +13,10 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-public class ImageAdapter extends ArrayAdapter<ImageListItem> {
+public class ImageListItemAdapter extends ArrayAdapter<ImageListItem> {
 
 
-    public ImageAdapter(@NonNull Context context,  ArrayList<ImageListItem> item) {
+    public ImageListItemAdapter(@NonNull Context context, ArrayList<ImageListItem> item) {
         super(context, 0, item);
     }
 
@@ -32,7 +32,12 @@ public class ImageAdapter extends ArrayAdapter<ImageListItem> {
         ImageView listItemImageView = imagesItemView.findViewById(R.id.image_list_item_image);
 
         TextView listItemDescription = imagesItemView.findViewById(R.id.image_list_item_description);
-        listItemDescription.setText(imageListItem.getDescription());
+        if (imageListItem.hasDescription()){
+            listItemDescription.setText(imageListItem.getDescription());
+            listItemDescription.setVisibility(View.VISIBLE);
+        }
+        else listItemDescription.setVisibility(View.GONE);
+
 
         if (imageListItem.hasBitmap()) {
             // If an image is available, display the provided image based on the bitmap
@@ -42,6 +47,8 @@ public class ImageAdapter extends ArrayAdapter<ImageListItem> {
         } else {
             // Otherwise hide the ImageView (set visibility to GONE)
             listItemImageView.setVisibility(View.GONE);
+            listItemDescription.setVisibility(View.GONE);
+            imagesItemView.setVisibility(View.GONE);
         }
         return imagesItemView;
     }

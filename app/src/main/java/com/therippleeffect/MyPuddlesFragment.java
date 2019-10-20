@@ -21,8 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Objects;
-
 
 public class MyPuddlesFragment extends Fragment {
 
@@ -43,24 +41,28 @@ public class MyPuddlesFragment extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 keysList.add(dataSnapshot.getKey());
 
-                    keysList.add(dataSnapshot.getKey());
-                    Puddle puddleItem = new Puddle(-1,
-                            dataSnapshot.getKey(),
-                            dataSnapshot.child(Puddle.nameKey).getValue().toString(),
-                            dataSnapshot.child(Puddle.initiatorKey).getValue().toString(),
-                            dataSnapshot.child(Puddle.questKey).getValue().toString(),
-                            dataSnapshot.child(Puddle.countryKey).getValue().toString(),
-                            dataSnapshot.child(Puddle.cityKey).getValue().toString(),
-                            Integer.parseInt(dataSnapshot.child(Puddle.reqRipplesKey).getValue().toString()),
-                            Integer.parseInt(dataSnapshot.child(Puddle.createdRipplesKey).getValue().toString()),
-                            dataSnapshot.child(Puddle.typeKey).getValue().toString(),
-                            dataSnapshot.child(Puddle.statusKey).getValue().toString(),
-                            Integer.parseInt(dataSnapshot.child(Puddle.credibilityKey).getValue().toString()),
-                            Integer.parseInt(dataSnapshot.child(Puddle.reportsKey).getValue().toString()),
-                            dataSnapshot.child(Puddle.detailsKey).getValue().toString(),
-                            dataSnapshot.child(Puddle.dateKey).getValue().toString());
-                    puddlesList.add(puddleItem);
-                    puddleAdapter.notifyDataSetChanged();
+                Puddle puddleItem = new Puddle(
+                        dataSnapshot.getKey(),
+                        dataSnapshot.child(Puddle.mainImageKey).getValue().toString(),
+                        dataSnapshot.child(Puddle.nameKey).getValue().toString(),
+                        dataSnapshot.child(Puddle.initiatorKey).getValue().toString(),
+                        dataSnapshot.child(Puddle.questKey).getValue().toString(),
+                        dataSnapshot.child(Puddle.countryKey).getValue().toString(),
+                        dataSnapshot.child(Puddle.cityKey).getValue().toString(),
+                        dataSnapshot.child(Puddle.locationLongitudeKey).getValue().toString(),
+                        dataSnapshot.child(Puddle.locationLatitudeKey).getValue().toString(),
+                        Integer.parseInt(dataSnapshot.child(Puddle.reqRipplesKey).getValue().toString()),
+                        Integer.parseInt(dataSnapshot.child(Puddle.createdRipplesKey).getValue().toString()),
+                        dataSnapshot.child(Puddle.typeKey).getValue().toString(),
+                        dataSnapshot.child(Puddle.statusKey).getValue().toString(),
+                        Integer.parseInt(dataSnapshot.child(Puddle.credibilityKey).getValue().toString()),
+                        Integer.parseInt(dataSnapshot.child(Puddle.reportsKey).getValue().toString()),
+                        dataSnapshot.child(Puddle.detailsKey).getValue().toString(),
+                        dataSnapshot.child(Puddle.dateKey).getValue().toString(),
+                        Puddle.StringToArrayList(dataSnapshot.child(Puddle.heroesArrayKey).getValue().toString()),
+                        ImageListItem.createImageItemListArrayListFromString(dataSnapshot.child(Puddle.imagesArrayKey).getValue().toString()));
+                puddlesList.add(puddleItem);
+                puddleAdapter.notifyDataSetChanged();
                 }
 
             @Override
@@ -85,7 +87,7 @@ public class MyPuddlesFragment extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Puddle puddle = puddlesList.get(i);
                 Intent readQuestIntent = new Intent(getContext(), AcceptQuestActivity.class);
-                readQuestIntent.putExtra(Puddle.key,puddle.getMainKey());
+                readQuestIntent.putExtra(Puddle.key,puddle.getPuddleKey());
                 readQuestIntent.putExtra("position In listView",i);
                 readQuestIntent.putExtra("source", "From MyPuddlesFragment");
                 startActivity(readQuestIntent);

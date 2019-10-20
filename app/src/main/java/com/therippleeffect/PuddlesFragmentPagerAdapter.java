@@ -24,10 +24,10 @@ public class PuddlesFragmentPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         if (position==0){
-            return "My Puddles";
+            return "My Ripples";
         }
 //        else if (position ==1)
 //            return "My Ripples";
-        else return "Search for Puddles";
+        else return "My Puddles";
     }
 }

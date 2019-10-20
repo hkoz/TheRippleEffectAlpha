@@ -1,15 +1,16 @@
 package com.therippleeffect;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 
 public class PuddleAdapter extends ArrayAdapter<Puddle> {
@@ -23,6 +24,7 @@ public class PuddleAdapter extends ArrayAdapter<Puddle> {
         public PuddleAdapter(Context context, ArrayList<Puddle> puddles) {
             super(context, 0, puddles);
         }
+
         @Override
         public View getView(int position, View convertView, @NotNull ViewGroup parent) {
             // Check if an existing view is being reused, otherwise inflate the view
@@ -45,22 +47,37 @@ public class PuddleAdapter extends ArrayAdapter<Puddle> {
             puddleName.setText(currentPuddle.getPuddleName());
             // Find the TextView in the list_item.xml layout with the ID puddle_quest.
             TextView puddleQuest =  listItemView.findViewById(R.id.puddle_quest);
-            // Get the puddle quest from the currentPuddle object and set this text on
+            // Get the puddle questEditText from the currentPuddle object and set this text on
             // the puddle_quest TextView.
             puddleQuest.setText(currentPuddle.getPuddleQuest());
             // Find the TextView in the list_item.xml layout with the ID puddle_status.
             TextView puddleStatus =  listItemView.findViewById(R.id.puddle_status);
-            // Get the puddle quest from the currentPuddle object and set this text on
+            // Get the puddle questEditText from the currentPuddle object and set this text on
             // the puddle_quest TextView.
             puddleStatus.setText(currentPuddle.getPuddleStatus());
             // Find the ImageView in the list_item.xml layout with the ID puddle_image.
             ImageView puddleImage =  listItemView.findViewById(R.id.puddle_image);
             // Check if an image is provided for this word or not
+
             if (currentPuddle.puddleHasImage()) {
-                // If an image is available, display the provided image based on the resource ID
-                puddleImage.setImageResource(currentPuddle.getImageResource());
-                // Make sure the view is visible
-                puddleImage.setVisibility(View.VISIBLE);
+                ImageListItem.ImageDownload task = new ImageListItem.ImageDownload(new ImageListItem.ImageDownload.AsyncResponse() {
+                    @Override
+                    public void processFinish(Bitmap bitmap) {
+
+                    }
+                });
+                String string = currentPuddle.getImageResourceURL();
+                try {
+                    // If an image is available, display the provided image based on the resource ID
+                    // Make sure the view is visible
+                    puddleImage.setVisibility(View.VISIBLE);
+                    puddleImage.setImageBitmap(task.execute(string).get());
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    puddleImage.setVisibility(View.GONE);
+                }
+
             } else {
                 // Otherwise hide the ImageView (set visibility to GONE)
                 puddleImage.setVisibility(View.GONE);

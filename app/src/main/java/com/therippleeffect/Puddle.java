@@ -3,160 +3,157 @@ package com.therippleeffect;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
 public class Puddle {
-    /** an integer representing puddle image resource*/
-    private int miamgeResource = No_Image;
-    /** a constant to check if there is an imgae*/
-    private static final int No_Image = -1;
-    /** a string representing the puddle initiator's name*/
-    private String mpuddleInitiator;
-    /** a string representing the puddle's title*/
-    private String mpuddleName;
-    /** a string representing the puddle's date od creation*/
-    private String mpuddleDateCreated;
-    /** a string representing the puddle's short discription*/
-    private String mpuddleQuest;
-    /** a string representing the puddle's status*/
-    private String mpuddleStatus;
-    /** a string representing the puddle's type*/
-    private String mpuddleType;
-    /** a string representing the puddle's details*/
-    private String mpuddleDetails;
-    /** a Integer representing the puddle's number of required ripples*/
-    private int mpuddleRequiredRipples;
-    /** a Integer representing the puddle's number of required ripples*/
-    private int mpuddleCreatedRipples;
-    /** a string representing the puddle's country location*/
-    private String mpuddleCountryLocation;
-    /** a string representing the puddle city location*/
-    private String mpuddleCityLocation;
-    /** a Integer representing the puddle's credibility*/
-    private int mpuddleCredibilityBoostsNumber;
-    /** a Integer representing the puddle's reports*/
-    private int mpuddleCredibilityReportsNumber;
-    /** a Array representing the puddle's heros*/
-    private Array mpuddleHeroes;
+
+    private String imageURL, initiatorName, puddleName, puddleDateCreated, puddleQuest,
+            puddleStatus, puddleType, puddleDetails, puddleCountryLocation, puddleCityLocation,
+            locationLongitude, locationLatitude = " ";
+
+    private int puddleRequiredRipples, puddleCreatedRipples, puddleCredibilityBoostsNumber, puddleCredibilityReportsNumber = 0;
+
+    private ArrayList<String> puddleHeroes = new ArrayList<>();
+    private ArrayList<ImageListItem> puddleImagesSources = new ArrayList<>();
 
 
-    private String mainKey;
 
-    public static String key = "KEY";
-    public static String nameKey = "PNK";
-    public static String initiatorKey = "INK";
-    public static String questKey = "QDK";
-    public static String countryKey = "CoLK";
-    public static String cityKey = "CiLK";
-    public static String reqRipplesKey = "RRK";
-    public static String createdRipplesKey = "RCK";
-    public static String typeKey = "TDK";
-    public static String statusKey = "SDK";
-    public static String credibilityKey = "CBK";
-    public static String reportsKey = "RSK";
-    public static String detailsKey = "DDK";
-    public static String dateKey = "DCK";
-    public static String locationKey = "LK";
-    public static String  mainimage= "MIMG";
-    public static String image1 = "IMG1";
+    private String puddleKey;
+
+    public static String key = "puddleKey";
+    public static String nameKey = "puddleName";
+    public static String initiatorKey = "initiatorName";
+    public static String questKey = "puddleQuest";
+    public static String countryKey = "puddleCountryLocation";
+    public static String cityKey = "puddleCityLocation";
+    public static String reqRipplesKey = "puddleRequiredRipples";
+    public static String createdRipplesKey = "puddleCreatedRipples";
+    public static String typeKey = "puddleType";
+    public static String statusKey = "puddleStatus";
+    public static String credibilityKey = "puddleCredibilityBoostsNumber";
+    public static String reportsKey = "puddleCredibilityReportsNumber";
+    public static String detailsKey = "puddleDetails";
+    public static String dateKey = "dateCreated";
+    public static String locationLongitudeKey = "locationLongitude";
+    public static String locationLatitudeKey = "locationLatitude";
+    public static String  mainImageKey= "imageURL";
+    public static String imagesArrayKey = "puddleImagesSources";
+    public static String heroesArrayKey = "puddleHeroesArray";
+
     public Puddle(){}
 
 
     /**the class constructor*/
-    public Puddle(int imageSource, String puddleKey, String puddlesName, String initiatorName, String puddleQuest,
-                  String puddleCountryLocation, String puddleCityLocation,
+    public Puddle(String puddleKey, String imageURL, String puddleName, String initiatorName, String puddleQuest,
+                  String puddleCountryLocation, String puddleCityLocation, String locationLongitude, String locationLatitude,
                   int puddleRequiredRipples, int puddleCreatedRipples, String puddleType, String puddleStatus,
-                  int puddleCredibilityBoostsNumber, int puddleCredibilityReportsNumber, String puddleDetails, String dateCreated) {
-        this.mainKey = puddleKey;
-        this.miamgeResource = imageSource;
-        this.mpuddleInitiator = initiatorName;
-        this.mpuddleName = puddlesName;
-        this.mpuddleQuest = puddleQuest;
-        this.mpuddleStatus = puddleStatus;
-        this.mpuddleType = puddleType;
-        this.mpuddleCountryLocation = puddleCountryLocation;
-        this.mpuddleCityLocation = puddleCityLocation;
-        this.mpuddleRequiredRipples = puddleRequiredRipples;
-        this.mpuddleCreatedRipples = puddleCreatedRipples;
-        this.mpuddleCredibilityBoostsNumber = puddleCredibilityBoostsNumber;
-        this.mpuddleCredibilityReportsNumber = puddleCredibilityReportsNumber;
-        this.mpuddleDetails = puddleDetails;
-        this.mpuddleDateCreated = dateCreated;}
+                  int puddleCredibilityBoostsNumber, int puddleCredibilityReportsNumber, String puddleDetails, String dateCreated ,
+                  ArrayList<String> puddleHeroesArray, ArrayList<ImageListItem> puddleImagesSources) {
+        this.puddleKey = puddleKey;
+        this.imageURL = imageURL;
+        this.initiatorName = initiatorName;
+        this.puddleName = puddleName;
+        this.puddleQuest = puddleQuest;
+        this.puddleStatus = puddleStatus;
+        this.puddleType = puddleType;
+        this.puddleCountryLocation = puddleCountryLocation;
+        this.puddleCityLocation = puddleCityLocation;
+        this.puddleRequiredRipples = puddleRequiredRipples;
+        this.puddleCreatedRipples = puddleCreatedRipples;
+        this.puddleCredibilityBoostsNumber = puddleCredibilityBoostsNumber;
+        this.puddleCredibilityReportsNumber = puddleCredibilityReportsNumber;
+        this.puddleDetails = puddleDetails;
+        this.puddleDateCreated = dateCreated;
+        this.locationLatitude = locationLatitude;
+        this.locationLongitude = locationLongitude;
+        this.puddleHeroes = puddleHeroesArray;
+        this.puddleImagesSources = puddleImagesSources;}
 
 
-    public int getImageResource() { return miamgeResource; }
+    public String getImageResourceURL() { return this.imageURL; }
 
-    public boolean puddleHasImage(){ return miamgeResource != No_Image;}
+    public boolean puddleHasImage(){ return this.imageURL != null;}
 
-    public String getPuddleInitiator() { return mpuddleInitiator; }
+    public String getPuddleInitiator() { return this.initiatorName; }
 
-    public String getPuddleName() { return mpuddleName; }
+    public String getPuddleName() { return this.puddleName; }
 
-    public String getPuddleDateCreated(){return mpuddleDateCreated;}
+    public String getPuddleDateCreated(){return this.puddleDateCreated;}
 
-    public String getPuddleQuest() { return mpuddleQuest; }
+    public String getPuddleQuest() { return this.puddleQuest; }
 
-    public String getPuddleStatus() { return mpuddleStatus; }
+    public String getPuddleStatus() { return this.puddleStatus; }
 
-    public String getPuddleType() { return mpuddleType; }
+    public String getPuddleType() { return this.puddleType; }
 
-    public String getPuddleCountryLocation() { return mpuddleCountryLocation; }
+    public String getPuddleCountryLocation() { return this.puddleCountryLocation; }
 
-    public String getPuddleCityLocation() { return mpuddleCityLocation; }
+    public String getPuddleCityLocation() { return this.puddleCityLocation; }
 
-    public int getPuddleRequiredRipples() { return mpuddleRequiredRipples; }
+    public int getPuddleRequiredRipples() { return this.puddleRequiredRipples; }
 
-    public int getPuddleCreatedRipples() { return mpuddleCreatedRipples; }
+    public int getPuddleCreatedRipples() { return this.puddleCreatedRipples; }
 
-    public Array getPuddleHeroes() { return mpuddleHeroes; }
+    public ArrayList<String> getPuddleHeroes() { return this.puddleHeroes; }
 
-    public int getPuddleCredibilityBoostsNumber() { return mpuddleCredibilityBoostsNumber; }
+    public ArrayList<ImageListItem> getPuddleImagesSources() { return this.puddleImagesSources; }
 
-    public int getPuddleCredibilityReportsNumber() { return mpuddleCredibilityReportsNumber; }
+    public String getLocationLatitude() { return this.locationLatitude; }
 
-    public String getPuddleDetails() { return mpuddleDetails; }
+    public String getLocationLongitude() { return this.locationLongitude; }
 
-    public String getMainKey (){return mainKey;}
+    public int getPuddleCredibilityBoostsNumber() { return this.puddleCredibilityBoostsNumber; }
 
-    public void setMainKey(String mainKey) { this.mainKey= mainKey; }
+    public int getPuddleCredibilityReportsNumber() { return this.puddleCredibilityReportsNumber; }
 
-    public void setPamgeResource(int mimageResource) { this.miamgeResource = mimageResource; }
+    public String getPuddleDetails() { return this.puddleDetails; }
 
-    public void setPuddleInitiator(String mpuddleInitiator) { this.mpuddleInitiator = mpuddleInitiator; }
+    public String getPuddleKey(){return this.puddleKey;}
 
-    public void setPuddleName(String mpuddleName) { this.mpuddleName = mpuddleName; }
+    public void setPuddleKey(String puddleKey) { this.puddleKey = puddleKey; }
 
-    public void setPuddleQuest(String mpuddleQuest) { this.mpuddleQuest = mpuddleQuest; }
+    public void setPamgeResource(String mimageResource) { this.imageURL = mimageResource; }
 
-    public void setPuddleStatus(String mpuddleStatus) { this.mpuddleStatus = mpuddleStatus; }
+    public void setPuddleInitiator(String mpuddleInitiator) { this.initiatorName = mpuddleInitiator; }
 
-    public void setPuddleType(String mpuddleType) { this.mpuddleType = mpuddleType; }
+    public void setPuddleName(String mpuddleName) { this.puddleName = mpuddleName; }
 
-    public void setPuddleCountryLocation(String mpuddleCountryLocation) { this.mpuddleCountryLocation = mpuddleCountryLocation; }
+    public void setPuddleQuest(String mpuddleQuest) { this.puddleQuest = mpuddleQuest; }
 
-    public void setPuddleCityLocation(String mpuddleCityLocation) { this.mpuddleCityLocation = mpuddleCityLocation; }
+    public void setPuddleStatus(String mpuddleStatus) { this.puddleStatus = mpuddleStatus; }
 
-    public void setPuddleRequiredRipples(int mpuddleRequiredRipples) { this.mpuddleRequiredRipples = mpuddleRequiredRipples; }
+    public void setPuddleType(String mpuddleType) { this.puddleType = mpuddleType; }
 
-    public void setPuddleCreatedRipples(int mpuddleCreatedRipples) { this.mpuddleCreatedRipples = mpuddleCreatedRipples; }
+    public void setPuddleCountryLocation(String mpuddleCountryLocation) { this.puddleCountryLocation = mpuddleCountryLocation; }
 
-    public void setMpuddleHeroes(Array mpuddleHeroes) { this.mpuddleHeroes = mpuddleHeroes;}
+    public void setPuddleCityLocation(String mpuddleCityLocation) { this.puddleCityLocation = mpuddleCityLocation; }
 
-    public void setMpuddleCredibilityBoostsNumber(int mpuddleCredibilityBoostsNumber) {
-        this.mpuddleCredibilityBoostsNumber = mpuddleCredibilityBoostsNumber; }
+    public void setPuddleRequiredRipples(int mpuddleRequiredRipples) { this.puddleRequiredRipples = mpuddleRequiredRipples; }
 
-    public void setMpuddleCredibilityReportsNumber(int mpuddleCredibilityReportsNumber) {
-        this.mpuddleCredibilityReportsNumber = mpuddleCredibilityReportsNumber; }
+    public void setPuddleCreatedRipples(int mpuddleCreatedRipples) { this.puddleCreatedRipples = mpuddleCreatedRipples; }
 
-    public void setPuddleDetails(String mpuddledetails) { this.mpuddleDetails = mpuddledetails; }
+    public void setPuddleHeroes(ArrayList<String> puddleHeroes) { this.puddleHeroes = puddleHeroes;}
+
+    public void setLocationLatitude(String locationLatitude) { this.locationLatitude = locationLatitude; }
+
+    public void setLocationLongitude(String locationLongitude) { this.locationLongitude = locationLongitude; }
+
+    public void setPuddleImagesSources(ArrayList<ImageListItem> puddleImagesSources) { this.puddleImagesSources = puddleImagesSources; }
+
+    public void setPuddleCredibilityBoostsNumber(int puddleCredibilityBoostsNumber) {
+        this.puddleCredibilityBoostsNumber = puddleCredibilityBoostsNumber; }
+
+    public void setPuddleCredibilityReportsNumber(int puddleCredibilityReportsNumber) {
+        this.puddleCredibilityReportsNumber = puddleCredibilityReportsNumber; }
+
+    public void setPuddleDetails(String mpuddledetails) { this.puddleDetails = mpuddledetails; }
 
     public static String getCurrentDate(){
 
@@ -166,23 +163,38 @@ public class Puddle {
         return simpleDateFormat.format(now);
     }
 
+    public static ArrayList<String> StringToArrayList (String string){
+        String[] items = string.split("\\s*,\\s*");
+        ArrayList<String> resultedArrayList = new ArrayList<>();
+        Collections.addAll(resultedArrayList, items);
+        return resultedArrayList; }
+
+    public static String ArrayToString(ArrayList <String> arrayList){
+        StringBuilder resultedString = new StringBuilder();
+        for(String s : arrayList){
+            resultedString.append(s);
+            resultedString.append(",");
+        }
+        return resultedString.toString(); }
     public Map<String, Object> toMap() {
         HashMap<String, Object> result = new HashMap<>();
-        result.put(nameKey, mpuddleName);
-        result.put(initiatorKey, mpuddleInitiator);
-        result.put(questKey, mpuddleQuest);
-        result.put(cityKey, mpuddleCityLocation);
-        result.put(countryKey, mpuddleCountryLocation);
-        result.put(reqRipplesKey, mpuddleRequiredRipples);
-        result.put(createdRipplesKey, mpuddleCreatedRipples);
-        result.put(dateKey, getCurrentDate());
-        result.put(reportsKey, mpuddleCredibilityReportsNumber);
-        result.put(credibilityKey, mpuddleCredibilityBoostsNumber);
-        result.put(statusKey, mpuddleStatus);
-        result.put(typeKey, mpuddleType);
-        result.put(detailsKey, mpuddleDetails);
-
-
+        result.put(nameKey, puddleName);
+        result.put(initiatorKey, initiatorName);
+        result.put(questKey, puddleQuest);
+        result.put(cityKey, puddleCityLocation);
+        result.put(countryKey, puddleCountryLocation);
+        result.put(reqRipplesKey, puddleRequiredRipples);
+        result.put(createdRipplesKey, puddleCreatedRipples);
+        result.put(dateKey, puddleDateCreated);
+        result.put(reportsKey, puddleCredibilityReportsNumber);
+        result.put(credibilityKey, puddleCredibilityBoostsNumber);
+        result.put(statusKey, puddleStatus);
+        result.put(typeKey, puddleType);
+        result.put(detailsKey, puddleDetails);
+        result.put(heroesArrayKey, Puddle.ArrayToString(puddleHeroes));
+        result.put (imagesArrayKey, ImageListItem.createStringFromImageListArrayList(puddleImagesSources));
+        result.put(locationLongitudeKey, locationLongitude);
+        result.put(locationLatitudeKey, locationLatitude);
         return result;
     }
     @Override

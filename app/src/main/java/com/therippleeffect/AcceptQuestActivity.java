@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -13,7 +14,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.Task;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,37 +26,23 @@ import java.util.ArrayList;
 public class AcceptQuestActivity extends AppCompatActivity {
 
 
-    TextView puddleName;
-    TextView dateCreated;
-    TextView initiator;
-    TextView quest;
-    TextView countryLocation;
-    TextView cityLocation;
-    TextView requiredRipples;
-    TextView createdRipples;
-    TextView type;
-    TextView status;
-    TextView credibility;
-    TextView reports;
-    TextView details;
+    TextView puddleName, dateCreated, initiator, quest, countryLocation, cityLocation, requiredRipples,
+            createdRipples, type, status, credibility, reports, details;
     Puddle receivedPuddle;
     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Puddles");
     ImageView mainImage;
-    ListView imageList;
-    ListView heroesList;
+    ListView imageList, heroesList;
 
     public static class ImageDownload extends AsyncTask<String,Void, Bitmap>{
 
         @Override
         protected Bitmap doInBackground(String... strings) {
             try{
-                Bitmap myImage;
                 URL url = new URL(strings[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
                 InputStream inputStream = connection.getInputStream();
-                myImage = BitmapFactory.decodeStream(inputStream);
-                return myImage;
+                return BitmapFactory.decodeStream(inputStream);
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -63,13 +50,10 @@ public class AcceptQuestActivity extends AppCompatActivity {
             }
         }
     }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accept_quest);
-
 
         puddleName=findViewById(R.id.puddle_name_text);
         initiator=findViewById(R.id.initiator_name_text);
@@ -85,14 +69,13 @@ public class AcceptQuestActivity extends AppCompatActivity {
         reports=findViewById(R.id.reports_text);
         details=findViewById(R.id.details_text);
         mainImage = findViewById(R.id.main_image);
+
         imageList = findViewById(R.id.images_list);
         imageList.setEmptyView(findViewById(R.id.empty_image_view));
-        ArrayList<ImageListItem> imagesArray = new ArrayList<>();
-        ImageAdapter imageAdapter = new ImageAdapter(AcceptQuestActivity.this,imagesArray);
+
         heroesList = findViewById(R.id.heroes_list);
         heroesList.setEmptyView(findViewById(R.id.empty_heroes_view));
-        ArrayList<String> heroesArray = new ArrayList<>();
-        ArrayAdapter<String> arrayAdapter = new  ArrayAdapter<>(AcceptQuestActivity.this,android.R.layout.simple_list_item_1, heroesArray);
+
 
 
         databaseReference = databaseReference.child(getIntent().getStringExtra(Puddle.key));
@@ -108,6 +91,7 @@ public class AcceptQuestActivity extends AppCompatActivity {
         quest.setText(receivedPuddle.getPuddleQuest());
         countryLocation.setText(receivedPuddle.getPuddleCountryLocation());
         cityLocation.setText(receivedPuddle.getPuddleCityLocation());
+        LatLng location = new LatLng(Double.parseDouble(receivedPuddle.getLocationLatitude()),Double.parseDouble(receivedPuddle.getLocationLongitude()));
         requiredRipples.setText(String.valueOf(receivedPuddle.getPuddleRequiredRipples()));
         createdRipples.setText(String.valueOf(receivedPuddle.getPuddleCreatedRipples()));
         type.setText(receivedPuddle.getPuddleType());
@@ -116,13 +100,25 @@ public class AcceptQuestActivity extends AppCompatActivity {
         reports.setText(String.valueOf(receivedPuddle.getPuddleCredibilityReportsNumber()));
         details.setText(receivedPuddle.getPuddleDetails());
         ImageDownload task = new ImageDownload();
-        String url = "https://pics.me.me/luffy-king-of-the-pirates-post-2nd-timeskip-drawn-by-35404338.png";
         try {
-            mainImage.setImageBitmap(task.execute(url).get());
+            mainImage.setImageBitmap(task.execute(receivedPuddle.getImageResourceURL()).get());
         }
         catch (Exception e){
             e.printStackTrace();
         }
+
+        ArrayList<ImageListItem> imagesArray = receivedPuddle.getPuddleImagesSources();
+        ImageListItemAdapter imagesAdapter = new ImageListItemAdapter(AcceptQuestActivity.this,imagesArray);
+        imageList.setAdapter(imagesAdapter);
+
+
+
+        ArrayList<String> heroesArray = receivedPuddle.getPuddleHeroes();
+        ArrayAdapter<String> heroesAdapter = new  ArrayAdapter<>(AcceptQuestActivity.this,android.R.layout.simple_list_item_1, heroesArray);
+        heroesList.setAdapter(heroesAdapter);
+
+
+        Log.i("khklhlkhkl", receivedPuddle.toMap().toString());
 
 
 
@@ -131,18 +127,18 @@ public class AcceptQuestActivity extends AppCompatActivity {
         Toast.makeText(this,getString(R.string.no_function), Toast.LENGTH_SHORT).show();
     }
     public void promoteCredibility (View view){
-        int credibilityValue = receivedPuddle.getPuddleCredibilityBoostsNumber();
-        credibilityValue += 1;
-        receivedPuddle.setMpuddleCredibilityBoostsNumber(credibilityValue);
-        databaseReference.updateChildren(receivedPuddle.toMap());
+        int value = receivedPuddle.getPuddleCredibilityBoostsNumber();
+        value += 1;
+        receivedPuddle.setPuddleCredibilityBoostsNumber(value);
+        databaseReference.child(Puddle.credibilityKey).setValue(value);
         credibility.setText(String.valueOf(receivedPuddle.getPuddleCredibilityBoostsNumber()));
     }
 
     public void reportScam (View view){
-        int Value = receivedPuddle.getPuddleCredibilityReportsNumber();
-        Value += 1;
-        receivedPuddle.setMpuddleCredibilityReportsNumber(Value);
-        databaseReference.updateChildren(receivedPuddle.toMap());
+        int value = receivedPuddle.getPuddleCredibilityReportsNumber();
+        value += 1;
+        receivedPuddle.setPuddleCredibilityReportsNumber(value);
+        databaseReference.child(Puddle.reportsKey).setValue(value);
         reports.setText(String.valueOf(receivedPuddle.getPuddleCredibilityReportsNumber()));
     }
 
