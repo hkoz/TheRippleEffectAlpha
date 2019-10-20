@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -35,6 +36,8 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
+import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -239,7 +242,8 @@ public class CreateQuestActivity extends AppCompatActivity {
         cityText = cityEditText.getText().toString();
         requiredRipplesText= requiredRipplesEditText.getText().toString();
         detailsText = detailsEditText.getText().toString();
-        mainImageURL = uploadImage(mainImage);
+
+        mainImageURL = String.valueOf(uploadImage(mainImage));
         initiatorName = mauth.getCurrentUser().getUid();
         heroesList = new ArrayList<>();
         heroesList.add(initiatorName + ",");
@@ -294,8 +298,8 @@ public class CreateQuestActivity extends AppCompatActivity {
         startActivityForResult(intent,PICK_IMAGE_REQUEST);
 
     }
-    private String uploadImage(ImageView tobeUploadedImage) {
-        final String[] resultedUrl = {" "};
+    private Uri[] uploadImage(ImageView tobeUploadedImage) {
+        final Uri[] resultedUrl = new Uri[0];
         if(filePath != null)
         {
             tobeUploadedImage.setDrawingCacheEnabled(true);
@@ -305,50 +309,40 @@ public class CreateQuestActivity extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.PNG, qualityNumber, baos);
             byte[] data = baos.toByteArray();
 
-            final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle(getString(R.string.uploading));
-            progressDialog.show();
+
             final StorageReference ref = storage.child("images").child(imageName);
             ref.putBytes(data)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss();
+
                             Toast.makeText(CreateQuestActivity.this, getString(R.string.uploaded), Toast.LENGTH_SHORT).show();
-                            resultedUrl[0] = ref.getDownloadUrl().toString();
+                            resultedUrl[0] = ref.getDownloadUrl().getResult();
+                            Log.i("aresiona", String.valueOf(ref.getDownloadUrl().getResult()));
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
                             Toast.makeText(CreateQuestActivity.this, getString(R.string.failed)+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
-                    })
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            double progress = (100.0*taskSnapshot.getBytesTransferred()/taskSnapshot
-                                    .getTotalByteCount());
-                            progressDialog.setMessage(getString(R.string.uploaded)+" "+(int)progress+"%");
-                        }
-                    }).getResult();
+                    });
         }
         else {Toast.makeText(CreateQuestActivity.this,getString(R.string.please_pick_image),Toast.LENGTH_SHORT).show();}
-        return String.valueOf(resultedUrl);
+        return resultedUrl;
     }
     private String uploadExtraImages (ArrayList<ImageListItem> imageListItemArrayList){
+        ArrayList<ImageListItem> tempArray = new ArrayList<>();
         if (imageListItemArrayList.isEmpty() || imageListItemArrayList.equals(null))
         {return " ~ ";}
      else
      for (ImageListItem imageListItem: imageListItemArrayList) {
          extraImage.setImageBitmap(imageListItem.getBitmap());
          ImageListItem tempImageListItem = new ImageListItem(imageListItem.bitmap,imageListItem.description,
-                 uploadImage(extraImage));
-         imageListItemArrayList.remove(imageListItem);
-         imageListItemArrayList.add(tempImageListItem);
+                 String.valueOf(uploadImage(extraImage)));
+         tempArray.add(tempImageListItem);
      }
-     return ImageListItem.createStringFromImageListArrayList(imageListItemArrayList);
+     return ImageListItem.createStringFromImageListArrayList(tempArray);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.text.TextUtils;
+import android.widget.ImageView;
 
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -61,6 +62,20 @@ public class ImageListItem {
             }
         }
     }
+
+//    public static String createImageItemListArrayListFromStringandUpload (ArrayList<ImageListItem> imageListItemArrayList, ImageView tempView){
+//        ArrayList<ImageListItem> tempArray = new ArrayList<>();
+//        if (imageListItemArrayList.isEmpty() || imageListItemArrayList.equals(null))
+//        {return " ~ ";}
+//        else
+//            for (ImageListItem imageListItem: imageListItemArrayList) {
+//                tempView.setImageBitmap(imageListItem.getBitmap());
+//                ImageListItem tempImageListItem = new ImageListItem(imageListItem.bitmap,imageListItem.description,
+//                        );
+//                tempArray.add(tempImageListItem);
+//            }
+//        return ImageListItem.createStringFromImageListArrayList(tempArray);
+//    }
 
     public static ArrayList<ImageListItem> createImageItemListArrayListFromString (String s ){
         ArrayList<String> bitmapDescStringArray = Puddle.StringToArrayList(s);

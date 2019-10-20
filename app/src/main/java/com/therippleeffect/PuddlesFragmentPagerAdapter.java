@@ -7,27 +7,34 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class PuddlesFragmentPagerAdapter extends FragmentPagerAdapter {
     Context mcontext;
-    public PuddlesFragmentPagerAdapter (Context context, FragmentManager fm){
+
+    public PuddlesFragmentPagerAdapter(Context context, FragmentManager fm) {
         super(fm);
-        mcontext=context;
-    }
-    @Override
-    public Fragment getItem(int position) {
-        if (position==0){ return new MyRipplesFragment();}
-//        else if (position==1){return new MyRipplesFragment();}
-        else return new MyPuddlesFragment();
+        mcontext = context;
     }
 
     @Override
-    public int getCount() {return 2;}
+    public Fragment getItem(int position) {
+//        if (position==0){ return new MyRipplesFragment();}
+//        else if (position==1){return new MyRipplesFragment();}
+//        else return new MyPuddlesFragment();
+        return new MyPuddlesFragment();
+    }
+
+    @Override
+    public int getCount() {
+        return 1;
+    }
 
     @Override
     public CharSequence getPageTitle(int position) {
-        if (position==0){
-            return "My Ripples";
-        }
+//        if (position==0){
+//            return "My Ripples";
+//        }
 //        else if (position ==1)
 //            return "My Ripples";
-        else return "My Puddles";
+//        else return "My Puddles";
+//    }
+        return "Find Puddles";
     }
 }

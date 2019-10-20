@@ -55,36 +55,53 @@ public class PuddleAdapter extends ArrayAdapter<Puddle> {
             // Get the puddle questEditText from the currentPuddle object and set this text on
             // the puddle_quest TextView.
             puddleStatus.setText(currentPuddle.getPuddleStatus());
+
+            TextView puddleType =  listItemView.findViewById(R.id.puddle_type);
+            // Get the puddle questEditText from the currentPuddle object and set this text on
+            // the puddle_quest TextView.
+            puddleType.setText(currentPuddle.getPuddleType());
             // Find the ImageView in the list_item.xml layout with the ID puddle_image.
             ImageView puddleImage =  listItemView.findViewById(R.id.puddle_image);
-            // Check if an image is provided for this word or not
-
-            if (currentPuddle.puddleHasImage()) {
-                ImageListItem.ImageDownload task = new ImageListItem.ImageDownload(new ImageListItem.ImageDownload.AsyncResponse() {
-                    @Override
-                    public void processFinish(Bitmap bitmap) {
-
-                    }
-                });
-                String string = currentPuddle.getImageResourceURL();
-                try {
-                    // If an image is available, display the provided image based on the resource ID
-                    // Make sure the view is visible
-                    puddleImage.setVisibility(View.VISIBLE);
-                    puddleImage.setImageBitmap(task.execute(string).get());
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    puddleImage.setVisibility(View.GONE);
-                }
-
-            } else {
-                // Otherwise hide the ImageView (set visibility to GONE)
-                puddleImage.setVisibility(View.GONE);
-            }
+            puddleImage.setImageResource(getImage(currentPuddle.getPuddleType()));
+//            if (currentPuddle.puddleHasImage()) {
+//                ImageListItem.ImageDownload task = new ImageListItem.ImageDownload(new ImageListItem.ImageDownload.AsyncResponse() {
+//                    @Override
+//                    public void processFinish(Bitmap bitmap) {
+//
+//                    }
+//                });
+//                String string = currentPuddle.getImageResourceURL();
+//                try {
+//                    // If an image is available, display the provided image based on the resource ID
+//                    // Make sure the view is visible
+//                    puddleImage.setVisibility(View.VISIBLE);
+//                    puddleImage.setImageBitmap(task.execute(string).get());
+//                }
+//                catch (Exception e){
+//                    e.printStackTrace();
+//                    puddleImage.setVisibility(View.GONE);
+//                }
+//
+//            } else {
+//                // Otherwise hide the ImageView (set visibility to GONE)
+//                puddleImage.setVisibility(View.GONE);
+//            }
             // Return the whole valuesList typeText layout (containing 3 TextViews) so that it can be shown in
             // the ListView.
             return listItemView;
         }
+    private int getImage (String pillar){
+        switch (pillar){
+            case "Money": return R.drawable.money;
+            case "Effort": return R.drawable.study;
+            case "Giveaway" : return R.drawable.giveaway;
+            case "Hitchhike" : return R.drawable.hitchhike;
+            case "Food": return R.drawable.effort;
+            case "Babysit": return R.drawable.babysit;
+            case "Search" : return R.drawable.search;
+            case "Other" : return R.drawable.babysitter;
+            default: return R.drawable.life_png;
+        }
+    }
     }
 
